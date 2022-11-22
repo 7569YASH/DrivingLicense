@@ -1,0 +1,102 @@
+
+///Exception class
+
+package com.gqt.YASH;
+
+public class UnderageException extends Exception
+{
+	 public String getMessage()
+	    {
+	    	return "Your not eligible try later";
+	    }
+}
+
+
+///Applicant Class
+
+package com.gqt.YASH;
+
+import java.util.Scanner;
+
+public class Applicant
+{
+	   private int age;
+	   public void acceptInput()
+	   {
+		   Scanner scan = new Scanner(System.in);
+		   System.out.println("Enter the age");
+		   age = scan.nextInt();
+	   }
+	   public void verify() throws Exception
+	   {
+		   if(age<18)
+		   {
+			   System.out.println("your under age!");
+		   }
+		   else if(age>65)
+		   {
+			   System.out.println("Your Over age please take rest");
+		   }
+		   else
+		   {
+			   UnderageException uae = new UnderageException();
+			   System.out.println(uae.getMessage());
+			   throw uae;
+		   }
+	   }
+	}
+
+////RTO Class
+
+package com.gqt.YASH;
+
+public class RTO 
+{
+	 public void initiate()
+	   {
+		   Applicant app = new Applicant ();
+		   try
+		   {
+			   app.acceptInput();
+			   app.verify();
+		   }
+		   catch(Exception e)
+		   {
+			   try
+			   {
+				   app.acceptInput();
+				   app.verify();
+			   }
+			   catch(Exception f)
+			   {
+				   try
+				   {
+					   app.acceptInput();
+					   app.verify();
+				   }
+				   catch(Exception g)
+				   {
+					   System.out.println("Attemps ended try after 6months");
+					   System.exit(0);
+				   }
+			   }
+			   
+		   }
+	   }
+}
+
+//Launch classs
+
+package com.gqt.YASH;
+
+public class Launch {
+
+	public static void main(String[] args)
+	{
+		RTO rto = new RTO();
+		rto.initiate();
+
+	}
+
+}
+
